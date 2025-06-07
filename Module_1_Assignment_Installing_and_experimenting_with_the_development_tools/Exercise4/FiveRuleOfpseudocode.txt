@@ -1,5 +1,5 @@
 5 rules of pseudocode.
-
+The fist thing the video creator said was there were no rules in pseudocode. However, here is what I surmised while watching the videos.
 1. Demonstrate Flexibility of use while maintaining readability for others.
 2. Use declare or define for variables and separate similar types with a comma on one line.
 3. Separate out logic with a blank line.
