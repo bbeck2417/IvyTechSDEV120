@@ -1,0 +1,7 @@
+5 rules of pseudocode.
+
+1. Demonstrate Flexibility of use while maintaining readability for others.
+2. Use declare or define for variables and separate similar types with a comma on one line.
+3. Separate out logic with a blank line.
+4. Align blocks of pseudocode appropriately using indentation.
+5. Use Start and End statements to define the start and end of the pseudocode block.
