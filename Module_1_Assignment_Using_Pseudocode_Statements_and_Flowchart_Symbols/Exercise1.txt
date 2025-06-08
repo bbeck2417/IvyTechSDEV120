@@ -1,0 +1,21 @@
+// This pseudocode is intended to compute the number of miles per gallon you get with your automobile
+// To calculate the number of miles per gallon we will declare the following:
+
+Declare milesTraveled           //milesTraveled
+Declare gallonsOfGasUsed        //gallonsOfGasUsed
+Declare milesPerGallon          //milesPerGallon
+
+START PROGRAM
+
+// We first need to get the information from the user for milesTraveled and gallonsOfGasUsed.
+    input milesTraveled
+    input gallonsOfGasUsed
+
+// We need to calculate the milesPerGallon
+    milesPerGallon = milesTraveled / gallonsOfGasUsed
+
+// We need to display to the user the results of our calculation.
+    output milesPerGallon
+
+STOP PROGRAM
+

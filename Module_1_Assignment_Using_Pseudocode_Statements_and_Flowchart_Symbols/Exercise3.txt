@@ -1,0 +1,30 @@
+// This program accepts a user's monthly pay and rent, utilities, and grocery bills
+// and displays the amount available for discretionary spending (which might be negative)
+// Your program should output the pay and the total bills as well as the remaining discretionary amount
+
+START PROGRAM
+
+// We need to declare the variables for monthly pay, rent, utilities, grocery bills. and discretionary spending.
+    Declare monthlyPay
+    Declare monthlyRent
+    Declare monthlyUtilities
+    Declare monthlyGroceries
+    Declare totalMonthlyBills
+    Declare discretionarySpending
+
+// We need to get the inputs from the user.
+    input monthlyPay
+    input monthlyRent
+    input monthlyUtilities
+    input monthlyGroceries
+
+// We need to calculate the discretionary spending. First, total the bills then subract from the pay.
+    totalMonthlyBills = monthlyRent + monthlyUtilities + monthlyGroceries
+    discretionarySpending = monthlyPay - totalMonthlyBills
+
+// We need to inform the user of the results.
+    output "Your total monthly pay is " + monthlyPay + "and you monthly bills are " + totalMonthlyBills + ". Giving you an available amount of " + discretionarySpending + " for spending."
+
+END PROGRAM
+
+    

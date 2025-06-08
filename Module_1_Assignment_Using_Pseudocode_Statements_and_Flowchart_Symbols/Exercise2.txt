@@ -1,0 +1,19 @@
+// This pseudocode is intended to describe computing the daily cost of your rent in a 30-day month
+
+START PROGRAM
+
+// We need to declare the rent ammount variable, the daily cost variable and the 30 day month constant
+    Declare rentAmount
+    Declare month = 30
+    Declare dailyCost
+
+// We need to get the rent ammount from the user.
+    input rentAmount
+
+// We need to calculate the daily cost based on the user's rent amount.
+    dailyCost = rentAmount / month
+
+// We need to display the results to the user.
+    output "Your daily cost of rent is " + dailyCost
+
+END PROGRAM    
