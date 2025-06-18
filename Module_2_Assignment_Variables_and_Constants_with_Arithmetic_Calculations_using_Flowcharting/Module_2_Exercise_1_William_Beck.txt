@@ -1,0 +1,37 @@
+Declare inputs
+
+input numOfBathroomsToClean
+input nuOfOtherRoomsToClean
+input custLastName
+
+Declare variables
+costForBathrooms
+costForOtherRooms
+totalCost
+
+Devlare Constants
+serviceCharge = 40
+bathroomCharge = 15
+otherRoomCharge = 10
+
+Start
+
+Get Last Name of customer
+input custLastName
+
+Get input number numOfBathroomsToClean
+Get input number nuOfOtherRoomsToClean
+
+Calculate costForBathrooms
+costForBathrooms = numOfBathroomsToClean * 15
+Calculate costForOtherRooms
+costForOtherRooms =  numOfBathroomsToClean * 10
+Calculate totalCost
+
+total cost = costForBathrooms + costForOtherRooms + 40
+
+
+display numOfBathroomsToClean and costForBathrooms
+display nuOfOtherRoomsToClean and costForOtherRooms
+display totalCost 
+Display end of program message

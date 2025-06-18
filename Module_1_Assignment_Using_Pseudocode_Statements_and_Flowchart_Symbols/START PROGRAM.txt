@@ -1,0 +1,29 @@
+START PROGRAM
+
+// Declare constants and variables
+    Declare days_in_week = 5
+    Declare workdays_in_year = 252 
+    Declare dailyHoursWorked
+    Declare totalWeeklyHours
+    Declare totalAnnualHours
+
+// Get input for daily hours worked
+    OUTPUT "This program calculates total hours worked per week and per year."
+    OUTPUT "Please enther the number of hours worked per day"
+
+// Validate input from user
+    IF dailyHoursWorked < 0 OR dailyHoursWorked > 24 THEN
+        OUTPUT "Error: Hour worked per day must be between 0 and 24."
+        OUTPUT "Program will now exit."
+    END PROGRAM
+
+    ELSE 
+// Calculate total hours worked per week and per year
+        totalWeeklyHours = dailyHoursWorked * days_in_week
+        totalAnnualHours = totalWeeklyHours * workdays_in_year
+
+        OUTPUT "You have entered: " + dailyHoursWorked + " hours per day."
+        OUTPUT "Total hours worked per week(5 days): " + totalWeeklyHours
+        OUTPUT "Total hours worked per year(252 workdays): " + totalAnnualHours
+
+END PROGRAM
