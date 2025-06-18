@@ -1,0 +1,26 @@
+Start
+
+Declare inputs
+input projectedHours
+input wholesaleCost
+
+Declare variables
+materialsPrice 
+laborCost
+totalCost
+
+Declare Constants
+hourlyRate = 30
+wholesaleCharge = 1.2
+
+Calculate costs
+laborCost = projectedHours * hourlyRate
+materialsPrice = (wholesaleCost * wholesaleCharge) + wholesaleCost
+totalCost = laborCost + materialsPrice
+
+
+Display
+totalCost
+
+End 
+
