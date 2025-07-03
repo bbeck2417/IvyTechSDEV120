@@ -1,0 +1,37 @@
+// This pseudocode is intended to display employee net pay values.
+// All employees have a standard $45 deduction from their checks.
+// If an employee does not earn enough to cover the deduction
+// an error message is displayed.
+start
+   Declarations
+      string name
+      num hours
+      num rate
+      num deduction = 45 // this should be a num and not a string and lowercase
+      string eofname = "ZZZ" // this should be lowercase
+      num gross
+      num net
+      function calculateNet()
+         gross = hours * rate
+         net = gross - deduction // DEDUCTION should be lowercase
+      return
+   end Declarations
+
+   output "Enter first name or " + eofname + " to quit" // EOFNAME should be lowercase and use a + symbol to concatenate strings
+   input name
+   while name <> to eofname
+      output "Enter hours worked for " + name // use a + symbol to concatenate strings
+      input hours
+      output "Enter hourly rate for " + name // use a + symbol to concatenate strings
+      input rate
+      calculateNet()
+         if net > 0 then         
+            output "Net pay for " + name + " is " + net // use a + symbol to concatenate strings
+         else
+            output "Deductions not covered. Net is 0."
+         endif
+      output "Enter next name or " + eofname + " to quit" //EOFNAME should be lowercase and use a + symbol to concatenate strings
+      input name
+   endwhile
+   output "End of job"
+stop
