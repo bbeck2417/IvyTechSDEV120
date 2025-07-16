@@ -12,6 +12,9 @@ const sentinelValue = "done";
 let addInFound = false;
 
 do {
+    if (userInput == sentinelValue) {
+        break;
+    }
     addInFound = false;
     for (let i = 0; i < addIns.length; i++) {
         if (userInput.toLowerCase() === addIns[i].product.toLowerCase()) {
