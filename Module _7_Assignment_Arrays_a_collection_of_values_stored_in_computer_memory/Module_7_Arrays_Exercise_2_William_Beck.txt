@@ -1,0 +1,44 @@
+Declarations
+Array addIns = [
+      {product: "Whipped cream", price: 0.89},
+      {product: "Cinnamon", price: 0.25},
+      {product: "Chocolate sauce", price: 0.59},
+      {product: "Amaretto", price: 1.50},
+      {product: "Irish whiskey", price: 1.75}
+  ]
+const num coffeePrice = 2;
+num totalPrice = coffeePrice;
+string userInput;
+boolean addInFound;
+string sentinelValue = 'done'
+
+Start
+do {
+    OUTPUT "Enter an add-in name (Whipped cream, Cinnamon, Chocolate sauce, Amaretto, Irish whiskey) or 'done' to finish:"
+    userInput
+
+    IF userInput = sentinelValue
+    break;
+    End IF
+
+    addInFound = false;
+
+    FOR EACH addIn IN addIns
+        IF userInput = addIn.product
+            totalPrice += addIn.price
+            OUTPUT "addIn.product added addIn.price. Your new total is totalPrice"
+            addInFound = TRUE
+            BREAK;
+        End IF
+    End FOR
+
+    IF NOT addInFound 
+        OUTPUT "Sorry, we do not carry that item."
+    End IF
+
+} while (sentinelValue != 'done')
+END do while
+
+OUTPUT "Your total price for Coffee is totalPrice"
+
+End
