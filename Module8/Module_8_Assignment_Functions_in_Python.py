@@ -6,7 +6,7 @@ def greaterThan(a, b):
         print("the statement " + str(a) + " is greater than " + str(b) + " is True.")
         return True
     else:
-        print("the statement " + str(a) + " is not greater than " + str(b) + " is False.")
+        print("the statement " + str(a) + " is greater than " + str(b) + " is False.")
         return False
     
 greaterThan(a, b)
