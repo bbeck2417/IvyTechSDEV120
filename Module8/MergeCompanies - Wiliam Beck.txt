@@ -1,0 +1,31 @@
+Declarations
+    input GeraldineCustomers
+    input GerardCustomers
+    output MergedCustomers
+    boolean EOF_Geraldine
+    boolean EOF_Gerard 
+    var currentGeraldineRecordID
+    var currentGerardRecordID
+
+    Start
+    EOF_Geraldine = false
+    EOF_Gerard = false  
+    open GeraldineCustomers
+    open GerardCustomers    
+    
+    while EOF_Geraldine is false and EOF_Gerard is false
+        read currentGeraldineRecord from GeraldineCustomers
+        read currentGerardRecord from GerardCustomers
+        if currentGraldineRecordID is less than currentGerardRecordID
+            output currentGeraldineRecord to MergedCustomers
+        else 
+            output currentGerardRecord to MergedCustomers
+    end while
+    Sort MergedCustomers by ID ascending
+
+    close GeraldineCustomers
+    close GerardCustomers
+    close MergedCustomers
+STOP
+
+           
