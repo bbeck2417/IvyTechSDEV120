@@ -1,0 +1,420 @@
+Module 8 Assignment - Group Project, Final Submission
+
+
+Pseudocode for Employee Payroll system
+
+Main User Interface Module
+
+Start
+
+Declarations
+    String menuChoice
+    String sentinelValue = "quit"
+
+// Main program loop
+While menuChoice != sentinelValue
+
+    // Display the main menu to the user
+    Output "---------------------------------------"
+    Output "  Employee Payroll System Main Menu"
+    Output "---------------------------------------"
+    Output "1. Add a New Employee"
+    Output "2. Modify an Employee Record"
+    Output "3. Track Time (Clock In/Out)"
+    Output "4. Calculate Employee Pay"
+    Output "5. Quit"
+    Output "---------------------------------------"
+    Output "Please enter the number of your choice:"
+    Input menuChoice
+
+    // Process the user's choice
+    Case of menuChoice
+
+        Case "1":
+            // Call the module for adding new employees
+            Call AddingEmployeesModule()
+            
+        Case "2":
+            // Call the module for modifying employee records
+            Call ModifyEmployeeModule()
+            
+        Case "3":
+            // Call the time tracking module
+            Call TimeTrackingModule()
+            
+        Case "4":
+            // Call the pay calculation module
+            Call PayCalculationModule()
+            
+        Case "5":
+            // Set the sentinel value to exit the loop
+            menuChoice = sentinelValue
+            Output "Exiting Employee Payroll System. Goodbye!"
+
+        Default:
+            Output "Invalid choice. Please enter a number from 1 to 5."
+            
+    End Case
+
+End While
+
+End
+
+Adding Employees to Database
+AddingEmployeesModule()
+
+Start
+
+Declarations
+    String firstName
+    String lastName
+    Num numOfDependents
+    Num hoursWorked
+    Num hourlyRate
+    Num employeeID
+    String userChoice 
+    InputFile employees.dat
+
+Open employees.employees.dat for APPEND (or appropriate mode for adding records)
+
+Output “Would you like to add employee information? (Enter 'Yes' to add or 'quit' to exit)”
+Input userChoice
+
+While userChoice != “quit”
+
+    Output “Please enter employee ID:”
+    Input employeeID
+    Output “Please enter employee First Name:”
+    Input firstName
+    Output “Please enter employee Last Name:”
+    Input lastName
+    Output “Please enter the number of dependents:”
+    Input numOfDependents
+    Output “Please enter the hourly rate:”
+    Input hourlyRate
+    Output “Please enter the number of hours worked:” // Added this input
+    Input hoursWorked
+
+    // Write all employee data to the file
+    Output firstName, lastName, numOfDependents, hoursWorked, hourlyRate, employeeID to employees.dat
+
+    Output “Employee added. Would you like to add another employee? (Enter 'Yes' to add or 'quit' to exit)”
+    Input userChoice
+
+End While
+
+Close employees.dat
+Output “Program terminated.”
+
+End
+
+Modify Employee Records
+
+ModifyEmployeeModule()
+Start
+    Declarations
+        String firstName
+        String lastName
+        Num numOfDependents
+        Num hoursWorked
+        Num hourlyRate
+        String employeeIDToModify
+        String fieldToUpdate
+        String newValueForField
+        String sentinelValue = “quit”
+        InputFile employeesInputFile
+        OutputFile employeesOutputFile // For writing updated data
+        
+    Open employeesInputFile "employees.dat" FOR READ
+    // Optionally, if you're loading all data into memory first:
+    // Create an empty list or dictionary: employeeRecordsList / employeeRecordsDictionary
+
+    // Read existing data into memory if you're not doing direct file modification
+    // For simplicity here, we'll assume we're reading and then rewriting the whole file.
+    // In a real application, for large files, you might use a temporary file or a database.
+    
+    While employeeIDToModify != sentinelValue
+        Output "Please enter employee ID to modify employee information or “quit” to exit:"
+        Input employeeIDToModify
+
+        If employeeIDToModify = sentinelValue Then
+            Output "Program terminated."
+            Break
+        End If
+
+        // --- Start: Employee ID Validation and Record Retrieval ---
+        Var foundRecord = false
+        Var updatedRecords = New List() // To store records, including the modified one
+
+        // Rewind employeesInputFile or reopen it for each search, 
+        // or load all data into memory once at the beginning.
+        Close employeesInputFile
+        Open employeesInputFile "employees.dat" FOR READ
+
+        While NOT EOF(employeesInputFile)
+            Read Record currentEmployeeRecord FROM employeesInputFile 
+            // Assume currentEmployeeRecord has fields like currentEmployeeRecord.ID, currentEmployeeRecord.firstName, etc.
+            
+            If currentEmployeeRecord.ID = employeeIDToModify Then
+                foundRecord = true
+                Output "Employee found: " + currentEmployeeRecord.firstName + " " + currentEmployeeRecord.lastName
+                
+                // --- Start: Field Selection and Update ---
+                Output "Please type 'firstName', 'lastName', 'numOfDependents', 'hoursWorked', or 'hourlyRate' to update, or 'cancel' to choose a different employee:"
+                Input fieldToUpdate
+
+                If fieldToUpdate = "cancel" Then
+                    Add currentEmployeeRecord TO updatedRecords // Add original record if cancelled
+                    Continue // Go back to the main loop to ask for another employee ID
+                Else If fieldToUpdate = "firstName" OR fieldToUpdate = "lastName" OR fieldToUpdate = "numOfDependents" OR fieldToUpdate = "hoursWorked" OR fieldToUpdate = "hourlyRate" Then
+                    Output "Please enter the new value for " + fieldToUpdate + ":"
+                    Input newValueForField
+                    
+                    // --- Start: Type Validation and Assignment ---
+                    If fieldToUpdate = "firstName" Then
+                        currentEmployeeRecord.firstName = newValueForField // No type conversion needed for String
+                    Else If fieldToUpdate = "lastName" Then
+                        currentEmployeeRecord.lastName = newValueForField // No type conversion needed for String
+                    Else If fieldToUpdate = "numOfDependents" Then
+                        If IsNumeric(newValueForField) Then
+                            currentEmployeeRecord.numOfDependents = ConvertToNum(newValueForField)
+                        Else
+                            Output "Invalid input. Number of dependents must be a number. Record not updated."
+                        End If
+                    Else If fieldToUpdate = "hoursWorked" Then
+                        If IsNumeric(newValueForField) Then
+                            currentEmployeeRecord.hoursWorked = ConvertToNum(newValueForField)
+                        Else
+                            Output "Invalid input. Hours worked must be a number. Record not updated."
+                        End If
+                    Else If fieldToUpdate = "hourlyRate" Then
+                        If IsNumeric(newValueForField) Then
+                            currentEmployeeRecord.hourlyRate = ConvertToNum(newValueForField)
+                        Else
+                            Output "Invalid input. Hourly rate must be a number. Record not updated."
+                        End If
+                    End If
+                    // --- End: Type Validation and Assignment ---
+                    Output "Employee record updated successfully."
+                Else
+                    Output "Invalid field selected. No changes made."
+                End If
+                // --- End: Field Selection and Update ---
+            End If
+            Add currentEmployeeRecord TO updatedRecords // Add the (potentially modified) record to the new list
+        End While
+
+        If NOT foundRecord Then
+            Output "Employee ID " + employeeIDToModify + " not found. Please enter a valid employee ID."
+        End If
+        // --- End: Employee ID Validation and Record Retrieval ---
+
+        // --- Start: File Rewrite (or Database Update) ---
+        Close employeesInputFile
+        Open employeesOutputFile "employees.dat" FOR WRITE // Overwrite the original file
+        For Each record IN updatedRecords
+            Write record TO employeesOutputFile
+        End For
+        Close employeesOutputFile
+        // --- End: File Rewrite ---
+
+    End While
+
+End
+
+
+
+
+Time Tracking Module
+
+TimeTrackingModule()
+Start
+
+Declarations
+    String employeeID
+    String actionType // "clock in" or "clock out"
+    String currentTime
+    InputFile employees.dat
+    InputOutputFile time_log.dat // Using a mode that allows both reading and writing
+
+Open employees.dat
+Open time_log.dat for APPEND
+
+Output "--- Employee Time Tracking ---"
+Output "Please enter your Employee ID (or 'quit' to exit):"
+Input employeeID
+
+// Main loop for the time tracking module
+While employeeID != "quit"
+
+    // Assume a function `searchForEmployeeID` exists
+    // This function would read `employees.dat` and return true if the ID is found.
+    // If we were using a real database, this would be a query.
+    If searchForEmployeeID(employeeID, employees.dat) then
+
+        Output "Employee ID found. Would you like to 'clock in' or 'clock out'?"
+        Input actionType
+
+        // Validate the user's action
+        If actionType = "clock in" or actionType = "clock out" then
+
+            // Get the current timestamp (e.g., system time)
+            currentTime = getCurrentSystemTime()
+
+            // Write the time log entry to the file
+            Output "Log Entry: " + employeeID + ", " + actionType + ", " + currentTime to time_log.dat
+            Output "You have successfully " + actionType + " at " + currentTime + "."
+
+        Else
+            Output "Invalid action. Please enter 'clock in' or 'clock out'."
+        End If
+
+    Else
+        Output "Error: Employee ID not found. Please try again."
+    End If
+
+    Output "Please enter your Employee ID (or 'quit' to exit):"
+    Input employeeID
+
+End While
+
+Close employees.dat
+Close time_log.dat
+Output "Time tracking module terminated."
+
+End
+
+ Function searchForEmployeeID(employeeIDToFind, file)
+    While not end of file
+        Read next record from file
+        If record.employeeID = employeeIDToFind then
+            Return true
+        End If
+    End While
+    Return false
+ End Function
+
+// Note: The `getCurrentSystemTime` function would be a system call to get the current date and time.
+
+
+Pay Calculation Module
+
+PayCalculationModule()
+
+Start
+
+Declarations
+    String employeeID
+    Num hoursWorked
+    Num hourlyRate
+    Num grossPay
+    Num overtimeHours
+    Num regularPay
+    Num overtimePay
+    Num stateTaxRate = 0.056  
+    Num federalTaxRate = 0.079 
+    Num stateTax
+    Num federalTax
+    Num preTaxAmount
+    Num postTaxAmount
+    InputFile employees.dat
+    String userChoice
+
+Open employees.dat
+
+Output "--- Employee Pay Calculation ---"
+Output "Enter 'Calculate' to begin or 'quit' to exit."
+Input userChoice
+
+While userChoice != "quit"
+
+    Output "Please enter the Employee ID:"
+    Input employeeID
+
+    If searchForEmployeeData(employeeID, employees.dat, hourlyRate, hoursWorked) then
+        Output "Employee data found. Calculating pay..."
+
+        // Calculate Gross Pay
+        If hoursWorked > 40 then
+            // Calculate overtime pay for hours over 40
+            overtimeHours = hoursWorked - 40
+            regularPay = 40 * hourlyRate
+            overtimePay = overtimeHours * (hourlyRate * 1.5)
+            grossPay = regularPay + overtimePay
+        Else
+            // Calculate regular pay for hours up to 40
+            grossPay = hoursWorked * hourlyRate
+        End If
+
+        // Set the pre-tax amount (which is the Gross Pay)
+        preTaxAmount = grossPay
+
+        // Calculate State and Federal Taxes on the pre-tax amount
+        stateTax = preTaxAmount * stateTaxRate
+        federalTax = preTaxAmount * federalTaxRate
+
+        // Calculate the post-tax amount
+        postTaxAmount = preTaxAmount - stateTax - federalTax
+
+        // Display the results
+        Output "--- Paystub for Employee ID " + employeeID + " ---"
+        Output "Gross Pay: " + grossPay
+        Output "State Tax (5.6%): " + stateTax
+        Output "Federal Tax (7.9%): " + federalTax
+        Output "Post-Tax Amount: " + postTaxAmount
+        Output "---------------------------------------"
+
+    Else
+        Output "Error: Employee ID not found. Please check the ID and try again."
+    End If
+
+    Output "Enter 'Calculate' to process another employee or 'quit' to exit."
+    Input userChoice
+
+End While
+
+searchForEmployeeData(employeeIDToFind, file, foundHourlyRate, foundHoursWorked)
+Start
+
+Declarations
+    String currentRecordID
+    Num currentRecordHourlyRate
+    Num currentRecordHoursWorked
+    Boolean recordFound = false
+
+// Open the data file for reading
+Open file FOR READ
+
+// Loop through each record in the file
+While NOT EndOfFile(file)
+    // Read the next record. Assumes a consistent file format.
+    // In this example, we assume the record contains:
+    // employeeID, firstName, lastName, numOfDependents, hoursWorked, hourlyRate
+    Read Record currentRecordID, firstName, lastName, numOfDependents, currentRecordHoursWorked, currentRecordHourlyRate FROM file
+
+    // Check if the current record's ID matches the one we're looking for
+    If currentRecordID = employeeIDToFind then
+        // If a match is found, assign the values to the output parameters
+        foundHourlyRate = currentRecordHourlyRate
+        foundHoursWorked = currentRecordHoursWorked
+        recordFound = true
+        // Exit the loop early since we found the record
+        Break
+    End If
+End While
+
+// Close the file to free up resources
+Close file
+
+// Return the result of the search
+Return recordFound
+
+End Function
+
+Close employees.dat
+Output "Pay calculation module terminated."
+
+End
+
+// Note: The `searchForEmployeeData` function is a placeholder that would read a file
+// and retrieve multiple pieces of data associated with a given employee ID.

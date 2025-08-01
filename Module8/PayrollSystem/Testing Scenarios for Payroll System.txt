@@ -1,0 +1,16 @@
+Testing Scenarios for Payroll System
+
+These scenarios cover various cases to ensure the function works correctly under different conditions.
+
+### Test Scenarios for `searchForEmployeeData`
+
+1.  **Successful Search (First Record):** The `employeeIDToFind` is the first record in the `employees.dat` file.
+2.  **Successful Search (Middle Record):** The `employeeIDToFind` is a record located in the middle of the `employees.dat` file.
+3.  **Successful Search (Last Record):** The `employeeIDToFind` is the very last record in the `employees.dat` file.
+4.  **Employee ID Not Found:** The `employeeIDToFind` does not exist in the `employees.dat` file. The function should return `false`.
+5.  **Empty File:** The `employees.dat` file is empty. The function should return `false`.
+6.  **Case Sensitivity:** The `employeeIDToFind` uses a different case (e.g., "E101" vs. "e101") than the ID in the file. The function should be tested to see if it's case-sensitive.
+7.  **File Read Error:** Simulate an error opening or reading the file to see how the function handles it (e.g., file permissions, file not found).
+8.  **Malformed Record:** Test a record in the file where the data format is incorrect or one of the fields (`hoursWorked` or `hourlyRate`) is missing.
+9.  **Multiple Matches:** Test a scenario where the same `employeeIDToFind` appears more than once in the file. The function should correctly return `true` and the data from the first match.
+10. **Zero Values:** Test a valid employee ID where `hoursWorked` or `hourlyRate` is `0`. The function should still find the record and return the correct values.

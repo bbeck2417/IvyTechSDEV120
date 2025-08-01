@@ -1,0 +1,56 @@
+Write the following pseudocode or flowchart program based on the following information.  Professor Zak allows students to drop the four lowest scores on the ten 100-point quizzes during the semester. Design an application that accepts a student's name and 10 quiz scores. Output the student’s name and total points for the student’s six highest-scoring quizzes.
+
+// Drop the four lowest scores on the ten 100-point quizzes.
+
+start
+    Declarations
+        num SIZE = 10
+        num MAX = 6
+        string name
+        num scores[SIZE]
+        num x
+        num y
+        num temp
+        num total
+        num COMPS = SIZE - 1
+        fillArray()
+        sortArray()
+        displayTotal()
+stop
+
+fillArray()
+   output "Enter student's name:"
+    input name
+    
+    for x from 0 to SIZE - 1
+        output "Enter score for quiz " & (x + 1) & ":"
+        input scores[x]
+    endfor
+
+return
+
+sortArray()
+    for x from 0 to COMPS - 1
+        for y from 0 to COMPS - x
+            if scores[y] < scores[y+1] then
+                call swap(scores[y], scores[y+1])
+            endif
+        endfor
+    endfor
+return
+
+swap()
+    temp = x
+    x = y
+    y = temp
+return
+
+displayTotal()
+otal = 0
+    for x from 0 to MAX - 1
+        total = total + scores[x]
+    endfor
+    
+    output "Student Name: " + name
+    output "Total score from the six highest quizzes: " + total
+return
